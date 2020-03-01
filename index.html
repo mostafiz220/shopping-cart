@@ -25,11 +25,11 @@
 
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button class="btn btn-default"><i class="fas fa-minus"></i></button>
-                           <input type="text" class="form-control text-center" value="1">
-                           <button class="btn btn-default"><i class="fas fa-plus"></i></button>
+                           <button id="item-minus" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="numberOfItem" type="text" class="form-control text-center" value="1">
+                           <button id="item-plus" class="btn btn-default"><i class="fas fa-plus"></i></button>
                         </div>
-                        <h5>$1219</h5>
+                        <h5>$<span id="item-price-phone">1219</span> </h5>
                         <img src="images/remove.png" alt="" class="remove-item">
                      </div>
                   </div>
@@ -43,12 +43,12 @@
                      </div>
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button class="btn btn-default"><i class="fas fa-minus"></i></button>
-                           <input type="text" class="form-control text-center" value="1">
-                           <button class="btn btn-default"><i class="fas fa-plus"></i></button>
+                           <button id="item-minus-case" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="numberOfItemCase" type="text" class="form-control text-center" value="1">
+                           <button id="item-plus-case" class="btn btn-default"><i class="fas fa-plus"></i></button>
 
                         </div>
-                        <h5>$59</h5>
+                        <h5>$<span id="item-price-case">59</span></h5>
                         <img src="images/remove.png" alt="" class="remove-item">
                      </div>
                   </div>
@@ -64,9 +64,9 @@
                      </div>
 
                      <div class="col-md-4 status">
-                        <h5>$1,278</h5>
-                        <h5>$0</h5>
-                        <h5>$1,278</h5>
+                        <h5>$<span id="subtotal">1,278</span></h5>
+                        <h5>$<span id="tax">115</span></h5>
+                        <h5>$<span id="total">1,278</span></h5>
                      </div>
                   </div>
                </div>
@@ -77,6 +77,92 @@
          </div>
       </div>
    </section>
+
+<script>
+
+//Add A Phone
+const itemPlus  = document.getElementById("item-plus");
+itemPlus.addEventListener("click", function(){
+    const totalNumberOfItemPhone =  addItem("numberOfItem");
+    const itemPriceTotalPhone = perUnitePrice(1218) * totalNumberOfItemPhone;
+   document.getElementById("item-price-phone").innerText = itemPriceTotalPhone;
+   const totalCostBeforeTax = totalPrice("subtotal");
+   const taxAmount = tax("subtotal");
+   const totalPriceAfterTax = totalCostBeforeTax + taxAmount;
+})
+
+//Remove A Phone
+const itemMinus  = document.getElementById("item-minus");
+itemMinus.addEventListener("click", function(){
+   const totalNumberOfItemPhone =  removeItem("numberOfItem");
+    const itemPriceTotalPhone = perUnitePrice(1218) * totalNumberOfItemPhone;
+   document.getElementById("item-price-phone").innerText = itemPriceTotalPhone;
+   const totalCostBeforeTax = totalPrice("subtotal");
+   const taxAmount = tax("subtotal");
+   const totalPriceAfterTax = totalCostBeforeTax + taxAmount;
+})
+   //Add A Case
+const itemPlusCase  = document.getElementById("item-plus-case");
+itemPlusCase.addEventListener("click", function(){
+   const totalNumberOfItemCase =  addItem("numberOfItemCase");
+    const itemPriceTotalCase = perUnitePrice(59) * totalNumberOfItemCase;
+   document.getElementById("item-price-case").innerText = itemPriceTotalCase;
+   const totalCostBeforeTax = totalPrice("subtotal");
+   const taxAmount = tax("subtotal");
+   const totalPriceAfterTax = totalCostBeforeTax + taxAmount;
+})
+   //Remove A Case
+   const itemMinusCase  = document.getElementById("item-minus-case");
+itemMinusCase.addEventListener("click", function(){
+   const totalNumberOfItemCase =  removeItem("numberOfItemCase");
+    const itemPriceTotalCase = perUnitePrice(59) * totalNumberOfItemCase;
+   document.getElementById("item-price-case").innerText = itemPriceTotalCase;
+   const totalCostBeforeTax = totalPrice("subtotal");
+   const taxAmount = tax("subtotal");
+   const totalPriceAfterTax = totalCostBeforeTax + taxAmount;
+})
+
+//Add a item to cart
+function addItem(id){
+   const currentNumberOfItem = document.getElementById(id).value;
+   const currentNumberOfItemFloat = parseFloat(currentNumberOfItem);
+   const totalNumberOfItem = currentNumberOfItemFloat + 1;
+   document.getElementById(id).value = totalNumberOfItem;
+   return totalNumberOfItem ;
+}
+//Remove a item for cart 
+function removeItem(id){
+   const currentNumberOfItem = document.getElementById(id).value;
+   const currentNumberOfItemFloat = parseFloat(currentNumberOfItem);
+   const totalNumberOfItem = currentNumberOfItemFloat -1;
+   document.getElementById(id).value = totalNumberOfItem;
+   return totalNumberOfItem ;
+}
+//Return Cost Per Unit 
+function perUnitePrice(perUnite){
+   return perUnite;
+}
+//Calculate total
+function totalPrice(id){
+   const phonePrice = document.getElementById("item-price-phone").innerText;
+   const phonePriceFloat = parseFloat(phonePrice);
+   const casePrice = document.getElementById("item-price-case").innerText;
+   const casePriceFloat = parseFloat(casePrice);
+   const checkoutCost = phonePriceFloat + casePriceFloat;
+   document.getElementById(id).innerText = checkoutCost;
+   return checkoutCost;
+}
+//Calculate Tax 15%
+function tax(id){
+const total = totalPrice(id);
+const tax = total * 0.09;
+const taxRound = Math.ceil(tax);
+document.getElementById("tax").innerText = taxRound;
+return taxRound;
+}
+
+</script>
+
 </body>
 
 </html>
