@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
    <title>Shopping Cart</title>
    <meta charset="utf-8">
@@ -12,7 +11,7 @@
 
 <body>
 
-   <section>
+   <section id="cartContainer">
       <div class="container">
          <div class="cart">
             <div class="col-md-12 col-lg-10 mx-auto">
@@ -29,7 +28,7 @@
                            <input id="numberOfItem" type="text" class="form-control text-center" value="1">
                            <button id="item-plus" class="btn btn-default"><i class="fas fa-plus"></i></button>
                         </div>
-                        <h5>$<span id="item-price-phone">1219</span> </h5>
+                        <h5>$<span id="item-price-phone">1218</span> </h5>
                         <img src="images/remove.png" alt="" class="remove-item">
                      </div>
                   </div>
@@ -71,16 +70,67 @@
                   </div>
                </div>
                <div class="col-md-12 pt-4 pb-4">
-                  <button type="button" class="btn btn-success check-out">Check Out</button>
+                  <button id="continue"  type="button" class="btn btn-success check-out">Continue</button>
                </div>
             </div>
          </div>
       </div>
    </section>
 
+   <section class="cart extra" id="billingAddressContainer">
+      <h2 class="text-center">Billing Address</h2>
+      <div class="row">
+         <div class="col-md-12 d-flex flex-column bd-highlight mb-3">
+            <label> Full Name</label>
+            <input type="text" id="name" name="name" placeholder="Mustafizur Rahman">
+            <label for="email"> Email</label>
+            <input type="text" id="email" name="email" placeholder="mostafizzillu@gmail.com">
+            <label for="adr"> Address</label>
+            <input type="text" id="adr" name="address" placeholder="545 Park st">
+            <label for="city"> City</label>
+            <input type="text" id="city" name="city" placeholder="New York">
+            <label for="state"> State</label>
+            <input type="text" id="state" name="state" placeholder="NY">
+            <label for="zip"> Zip</label>
+            <input type="text" id="zip" name="zip" placeholder="12321">
+         </div>
+         <div class="col-md-12 pt-4 pb-4">
+            <button id="continueShopping"  type="button" class="btn btn-success check-out">Continue Payment</button>
+         </div>
+      </div>
+   </section>
+
+   <section class="cart extra"id="paymentContainer">
+      <h2 class="text-center">Payment</h2>
+      <img src="images/we-accept.png"  class="mx-auto d-block"width="15%" >
+      <div class="row">
+         <div class="col-md-12">
+            <label>Name on Card</label>
+            <input type="text" placeholder="John More Doe">
+            <label>Credit card number</label>
+            <input type="text" placeholder="1111-2222-3333-4444">
+            <label>Exp Month</label>
+            <input type="text" placeholder="September">
+            <label>Exp Year</label>
+            <input type="text" placeholder="2018">
+            <label>CVV</label>
+            <input type="text" id="cvv" name="cvv" placeholder="352">
+          </div>
+      </div>
+      <dib class="row">
+         <div class="row col-md-5 pt-4 pb-4">
+            <button id="orderSubmit"  type="button" class="btn btn-success check-out">Submit Order</button>
+         </div>
+         <div class="row col-md-7 pt-4 pb-4">
+            <button id="orderReview"  type="button" class="btn btn-waring check-out" style="background-color: orange; color: black;">Review Order</button>
+         </div>
+      </dib>
+   </section>
+
+
 <script>
 
-//Add A Phone
+//Add Phone event handler 
 const itemPlus  = document.getElementById("item-plus");
 itemPlus.addEventListener("click", function(){
     const totalNumberOfItemPhone =  addItem("numberOfItem");
@@ -92,7 +142,7 @@ itemPlus.addEventListener("click", function(){
    document.getElementById("total").innerText = totalPriceAfterTax;
 })
 
-//Remove A Phone
+//Remove Phone event handler
 const itemMinus  = document.getElementById("item-minus");
 itemMinus.addEventListener("click", function(){
    const totalNumberOfItemPhone =  removeItem("numberOfItem");
@@ -103,7 +153,7 @@ itemMinus.addEventListener("click", function(){
    const totalPriceAfterTax = totalCostBeforeTax + taxAmount;
    document.getElementById("total").innerText = totalPriceAfterTax;
 })
-   //Add A Case
+   //Add Case event handler
 const itemPlusCase  = document.getElementById("item-plus-case");
 itemPlusCase.addEventListener("click", function(){
    const totalNumberOfItemCase =  addItem("numberOfItemCase");
@@ -114,7 +164,7 @@ itemPlusCase.addEventListener("click", function(){
    const totalPriceAfterTax = totalCostBeforeTax + taxAmount;
    document.getElementById("total").innerText = totalPriceAfterTax;
 })
-   //Remove A Case
+   //Remove Case event handler
    const itemMinusCase  = document.getElementById("item-minus-case");
 itemMinusCase.addEventListener("click", function(){
    const totalNumberOfItemCase =  removeItem("numberOfItemCase");
@@ -124,6 +174,42 @@ itemMinusCase.addEventListener("click", function(){
    const taxAmount = tax("subtotal");
    const totalPriceAfterTax = totalCostBeforeTax + taxAmount;
    document.getElementById("total").innerText = totalPriceAfterTax;
+})
+
+//Continue button event handler
+const continueBtn = document.getElementById("continue");
+continueBtn.addEventListener("click",function(){
+   const catArea = document.getElementById("cartContainer");
+   catArea.style.display = "none";
+   const billingArea = document.getElementById("billingAddressContainer");
+   billingArea.style.display = "block";
+})
+
+//Continue Payment event handler
+const contPayBtn = document.getElementById("continueShopping");
+contPayBtn.addEventListener("click",function(){
+   const billArea = document.getElementById("billingAddressContainer");
+   billArea.style.display = "none";
+   const payArea = document.getElementById("paymentContainer");
+   payArea.style.display = "block";
+})
+
+//Submit Order button event handler
+const subOrder = document.getElementById("orderSubmit");
+subOrder.addEventListener("click", function(){
+   alert("Your Order has been submitted! Your order id is: 5424324 ");
+})
+
+
+//Review Order button event handler
+rewBtn = document.getElementById("orderReview");
+rewBtn.addEventListener("click",function(){
+   const payArea = document.getElementById("paymentContainer");
+   payArea.style.display = "none";
+   const catArea = document.getElementById("cartContainer");
+   catArea.style.display = "block";
+
+
 })
 
 //Add a item to cart
@@ -156,7 +242,7 @@ function totalPrice(id){
    document.getElementById(id).innerText = checkoutCost;
    return checkoutCost;
 }
-//Calculate Tax 15%
+//Calculate Tax 9%
 function tax(id){
 const total = totalPrice(id);
 const tax = total * 0.09;
@@ -164,6 +250,8 @@ const taxRound = Math.ceil(tax);
 document.getElementById("tax").innerText = taxRound;
 return taxRound;
 }
+
+
 
 </script>
 

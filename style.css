@@ -53,3 +53,27 @@ body{
 	background-color: #2FBE70;
 	border: none;
 }
+.extra{
+	display: block;
+	margin: 5%;
+	padding: 5%;
+}
+input[type=text]{
+	width: 100%;
+	margin-bottom: 20px;
+	padding: 12px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+}
+
+#billingAddressContainer{
+	display: none;
+}
+#paymentContainer{
+	display: none;
+}
+#cart-container{
+	display: none;
+}
+
+
